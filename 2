@@ -1,0 +1,79 @@
+//a2 3 router 6 devices same network id 
+Switch#sh spanning-tree
+//2b 1 dhcp connnected to multi switch and 4 devices foe mls and a router and a switch and 2 devices 
+
+//2c 1 mls and 2 switch and 4 vlan for 2 divide switch
+switch 1
+Switch>en
+Switch#config t
+Enter configuration commands, one per line. End with CNTL/Z.
+Switch(config)#vlan 10
+Switch(config-vlan)#name p1
+Switch(config-vlan)#exit
+Switch(config)#vlan 20
+Switch(config-vlan)#name p2
+Switch(config-vlan)#exit
+Switch(config)#int fa 0/1
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 10
+Switch(config-if)#int fa 0/2
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 20
+Switch(config-if)#exit
+Switch(config)#
+
+s2
+
+Switch>en
+Switch#config t
+Enter configuration commands, one per line. End with CNTL/Z.
+Switch(config)#vlan 10
+Switch(config-vlan)#name p1
+Switch(config-vlan)#exit
+Switch(config)#vlan 20
+Switch(config-vlan)#name p2
+Switch(config-vlan)#exit
+Switch(config)#int fa 0/1
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 10
+Switch(config-if)#int fa 0/2
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 20
+Switch(config-if)#exit
+Switch(config)#
+
+Step 3:
+Trunking two switch :
+Switch 0:
+Switch(config)#int gig 0/1
+Switch(config-if)#switchport mode trunk
+
+
+Switch 1:
+Switch(config)#int gig 0/1
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#exit
+
+
+Step :4
+Connect the multi layer switch
+Switch>en
+Switch#config t
+Enter configuration commands, one per line. End with CNTL/Z.
+Switch(config)#vlan 10 
+Switch(config-vlan)#name p1
+Switch(config-vlan)#exit
+Switch(config)#vlan 20 
+Switch(config-vlan)#name p2
+Switch(config-vlan)#exit
+Switch(config)#int vlan 10
+Switch(config-if)#ip address 192.168.1.1 255.255.255.0
+Switch(config-if)#exit
+Switch(config)#int vlan 20
+Switch(config-if)#ip address 192.168.2.1 255.255.255.0
+Switch(config-if)#exit
+Switch(config)#int gig 1/0/1
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#end
+Switch#sh ip route
+
