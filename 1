@@ -1,0 +1,41 @@
+//1a  3 vlan with colors
+
+int fa0/1
+switchport mode access
+switchport access vlan 10
+//like this create 3 vlan 
+
+//1b   1 rout , 1 switch , 2 vlan for same switch with diff network id//or only one device in vlan
+
+//ip adress for device vlan1 -1.1.1.2 , vlan2-1.1.2.1
+
+switch>
+en
+config t
+int fa0/1
+switchport mode access
+switchport access vlan 10
+int fa0/2
+switchport mode access
+switchport access vlan 20
+exit
+
+rout>on gig
+
+en
+config t
+int gig0/0/0.10
+encap dot1q 10
+ip address 1.1.1.1 255.255.255.0
+exit
+int gig0/0/0.20
+encap dot1q 20
+ip address 1.1.2.1 255.255.255.0
+exit
+
+//switch again
+int fa0/3
+switchport mode trunk
+exit
+
+
