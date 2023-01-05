@@ -1,0 +1,66 @@
+//3a 3 router 3 switch 
+
+
+
+Router 0:
+
+Router(config)#route ospf 1
+Router(config-router)#router-id 198.10.10.0
+Router(config-router)#network 198.10.10.0 0.0.0.255 area 0
+Router(config-router)#network 10.0.0.0  0.255.255.255 area 0
+Router(config-router)#network 12.0.0.0  0.255.255.255 area 0
+
+Router 1:
+ Router(config)#route ospf 1
+Router(config-router)#router-id 198.20.20.0
+Router(config-router)#network 198.20.20.0  0.0.0.255 area 0
+Router(config-router)#network 11.0.0.0  0.255.255.255 area 0
+Router(config-router)#network 12.0.0.0  0.255.255.255 area 0
+
+Router 2:
+Router(config)#route ospf 1
+Router(config-router)#router-id 198.30.30.0
+Router(config-router)#network 198.30.30.0  0.0.0.255 area 0
+Router(config-router)#network 11.0.0.0  0.255.255.255 area 0
+Router(config-router)#network 12.0.0.0  0.255.255.255 area 0
+
+
+
+Eigrp :
+
+Router 0:
+Router#en
+Router#config t 
+Enter configuration commands, one per line. End with CNTL/Z.
+Router(config)#router eigrp 100
+Router(config-router)#network 198.10.10.0
+Router(config-router)#network 10.0.0.0
+Router(config-router)#network 12.0.0.0
+Router(config-router)#no auto-summary
+Router(config-router)#exit
+
+Router 1:
+Router#en
+Router#config t 
+Enter configuration commands, one per line. End with CNTL/Z.
+Router(config)#router eigrp 100
+Router(config-router)#network 198.20.20.0
+Router(config-router)#network 10.0.0.0
+Router(config-router)#network 11.0.0.0
+Router(config-router)#no auto-summary
+Router(config-router)#exit
+
+ Router 2:
+Router#en
+Router#config t 
+Enter configuration commands, one per line. End with CNTL/Z.
+Router(config)#router eigrp 100
+Router(config-router)#network 198.30.30.0
+Router(config-router)#network 11.0.0.0
+Router(config-router)#network 12.0.0.0
+Router(config-router)#no auto-summary
+Router(config-router)#exit
+Router#show ip route
+Router# show ip eigrp neighbor
+Router#show ip eigrp topology
+Router#show ip route eigrp
