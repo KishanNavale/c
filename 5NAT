@@ -1,0 +1,37 @@
+//5a 2 router 3 switch 2 devices for 2 switch and 1 server only ip address
+Router#en
+Router#config t
+Enter configuration commands, one per line. End with CNTL/Z.
+Router(config)#int gig0/1
+Router(config-if)#ip nat inside
+Router(config-if)#exit
+Router(config)#int gig0/2
+Router(config-if)#ip nat outside
+Router(config-if)#exit
+Router(config)#ip nat inside source static 20.20.20.2 30.30.30.3
+Router(config)#exit
+
+RIP
+
+INSPECT TOOL
+Router#show ip nat translation
+Pro Inside global Inside local Outside local Outside global
+--- 30.30.30.3 20.20.20.2 --- ---
+
+ 
+
+DYNAMIC NAT :
+
+Router#en
+Router#config t 
+Enter configuration commands, one per line. End with CNTL/Z.
+Router(config)#int gig0/0
+Router(config-if)#
+Router(config-if)#ip nat inside
+Router(config-if)#int gig0/2
+Router(config-if)#ip nat outside
+Router(config-if)#exit
+Router(config)# 
+Router(config)# ip nat pool cse 30.30.30.4 30.30.30.7 netmask 255.0.0.0
+Router(config)#access-list 10 permit 10.10.10.2 10.10.10.5
+Router(config)#ip nat inside source list 10 pool cse
